@@ -1,9 +1,9 @@
 require 'docx'
 require 'csv'
 # replace "FILE-NAME.docx" with the file name
-@file = Docx::Document.open('./Files/Schedules/FILE-NAME.docx')
+@file = Docx::Document.open('./Files/Schedules/REVISED LINE-UP WEEK ENDING NOVEMBER 21-2021.docx')
 
-@months = ["January", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"]
+@months = ["January", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "October", "Nov", "Dec"]
 
 @raw_text = []
 @nested_text = {}
@@ -32,9 +32,9 @@ def text_sort(raw_text, nested_text)
             nested_text[current_date][current_project] = []
         elsif worker_name?(line) || worker_name_with_note?(line)
             # p clean_string
-            # p current_date
+            p current_date
             # p current_project
-            # p nested_text[current_date][current_project]
+            # p current_project
             nested_text[current_date][current_project] << clean_string
         end
     end
@@ -72,7 +72,7 @@ end
 def date?(paragraph)
     result = false
     @months.each do |month|
-        result = true if paragraph.text.include?(month) && !paragraph.text.include?("Schedule")
+        result = true if paragraph.text.include?(" #{month} ") && !paragraph.text.include?("Schedule")
     end
     result
 end
